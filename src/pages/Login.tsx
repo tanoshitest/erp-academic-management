@@ -59,9 +59,7 @@ export function Login() {
               </button>
             ))}
           </div>
-          <p className="mt-6 text-center text-xs text-slate-400">
-            Phiên đăng nhập và dữ liệu mẫu được lưu trên trình duyệt này (localStorage).
-          </p>
+          <p className="mt-6 text-center text-xs text-slate-400">Built with Tanoshi Vietnam.</p>
         </div>
       </main>
     </div>
