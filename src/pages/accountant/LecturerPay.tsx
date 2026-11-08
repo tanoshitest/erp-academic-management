@@ -1,6 +1,7 @@
 import { BadgeCheck, CalendarClock, Clock, Wallet } from 'lucide-react'
 import { useState } from 'react'
 import { StatCard, StatGrid } from '../../components/common/StatCard'
+import { PageScroll } from '../../components/layout/PageScroll'
 import { Badge } from '../../components/ui/Badge'
 import { Button } from '../../components/ui/Button'
 import { Card, CardHeader, TableWrap } from '../../components/ui/Card'
@@ -23,15 +24,22 @@ export function LecturerPay() {
   const current = rows.find((r) => r.lecturer.id === selected)
 
   return (
-    <>
-      <StatGrid>
-        <StatCard icon={Wallet} label="Tổng thù lao kỳ này" value={money(total)} sub={CURRENT_SEMESTER} />
-        <StatCard icon={BadgeCheck} accent="green" label="Đã thanh toán" value={money(paid)} sub={`${rows.filter((r) => r.payout).length}/${rows.length} giảng viên`} />
-        <StatCard icon={CalendarClock} accent="amber" label="Chưa thanh toán" value={money(total - paid)} sub="Chờ kế toán xác nhận" />
-        <StatCard icon={Clock} accent="blue" label="Tổng tiết thực dạy" value={num(periods)} sub="Theo sổ đầu bài" />
-      </StatGrid>
-
-      <Card>
+    <PageScroll
+      top={
+        <>
+          <StatGrid>
+            <StatCard icon={Wallet} label="Tổng thù lao kỳ này" value={money(total)} sub={CURRENT_SEMESTER} />
+            <StatCard icon={BadgeCheck} accent="green" label="Đã thanh toán" value={money(paid)} sub={`${rows.filter((r) => r.payout).length}/${rows.length} giảng viên`} />
+            <StatCard icon={CalendarClock} accent="amber" label="Chưa thanh toán" value={money(total - paid)} sub="Chờ kế toán xác nhận" />
+            <StatCard icon={Clock} accent="blue" label="Tổng tiết thực dạy" value={num(periods)} sub="Theo sổ đầu bài" />
+          </StatGrid>
+          <p className="text-xs text-slate-500">
+            Hệ số học vị: {Object.entries(DEGREE_COEFFICIENT).map(([k, v]) => `${k} ${v.toFixed(1).replace('.', ',')}`).join(' · ')}
+          </p>
+        </>
+      }
+    >
+      <Card className="flex min-h-0 flex-1 flex-col">
         <CardHeader
           title="Bảng kê thù lao giờ dạy"
           subtitle={`Thù lao = Tiết thực dạy × Đơn giá theo hệ (ĐH ${num(RATE_PER_PERIOD.DH)} ₫ · ThS ${num(RATE_PER_PERIOD.THS)} ₫ · TS ${num(RATE_PER_PERIOD.TS)} ₫) × Hệ số học vị`}
@@ -83,10 +91,6 @@ export function LecturerPay() {
           </tfoot>
         </TableWrap>
       </Card>
-
-      <p className="text-xs text-slate-500">
-        Hệ số học vị: {Object.entries(DEGREE_COEFFICIENT).map(([k, v]) => `${k} ${v.toFixed(1).replace('.', ',')}`).join(' · ')}
-      </p>
 
       <Modal
         open={!!current}
@@ -156,6 +160,6 @@ export function LecturerPay() {
           </div>
         )}
       </Modal>
-    </>
+    </PageScroll>
   )
 }

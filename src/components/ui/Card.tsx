@@ -6,7 +6,7 @@ export function Card({ children, className = '' }: { children: ReactNode; classN
 
 export function CardHeader({ title, subtitle, actions }: { title: ReactNode; subtitle?: ReactNode; actions?: ReactNode }) {
   return (
-    <header className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 px-4 py-3">
+    <header className="flex shrink-0 flex-wrap items-center justify-between gap-3 border-b border-slate-200 px-4 py-3">
       <div className="min-w-0">
         <h2 className="truncate text-sm font-semibold text-navy-800">{title}</h2>
         {subtitle && <p className="mt-0.5 truncate text-xs text-slate-500">{subtitle}</p>}
@@ -18,7 +18,7 @@ export function CardHeader({ title, subtitle, actions }: { title: ReactNode; sub
 
 export function TableWrap({ children }: { children: ReactNode }) {
   return (
-    <div className="overflow-x-auto">
+    <div className="min-h-0 flex-1 overflow-auto">
       <table className="w-full border-collapse">{children}</table>
     </div>
   )

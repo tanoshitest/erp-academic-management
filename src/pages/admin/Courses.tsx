@@ -1,6 +1,7 @@
 import { Plus } from 'lucide-react'
 import { useState, type FormEvent } from 'react'
 import { EmptyState, SearchInput, Segmented, Toolbar } from '../../components/common/Controls'
+import { PageScroll } from '../../components/layout/PageScroll'
 import { Badge } from '../../components/ui/Badge'
 import { Button } from '../../components/ui/Button'
 import { Card, TableWrap } from '../../components/ui/Card'
@@ -48,8 +49,9 @@ export function Courses() {
   }
 
   return (
-    <>
-      <Toolbar
+    <PageScroll
+      top={
+        <Toolbar
         left={
           <>
             <select className="input w-56" value={faculty} onChange={(e) => setFaculty(e.target.value as 'all' | MajorCode)} aria-label="Khoa phụ trách">
@@ -81,8 +83,9 @@ export function Courses() {
           </>
         }
       />
-
-      <Card>
+      }
+    >
+      <Card className="flex min-h-0 flex-1 flex-col">
         <TableWrap>
           <thead>
             <tr>
@@ -174,6 +177,6 @@ export function Courses() {
           {error && <p className="text-sm text-red-600 sm:col-span-2">{error}</p>}
         </form>
       </Modal>
-    </>
+    </PageScroll>
   )
 }

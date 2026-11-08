@@ -5,6 +5,8 @@ import { useAuth } from '../../context/AuthContext'
 import { CURRENT_SEMESTER } from '../../data/schedule'
 import { NAV, ROLE_LABEL } from './nav'
 
+const FIXED_TOP_ROUTES = ['/ke-toan', '/ke-toan/thu-lao', '/admin/tuyen-sinh', '/admin/mon-hoc']
+
 export function AppShell() {
   const { user, logout } = useAuth()
   const navigate = useNavigate()
@@ -102,10 +104,14 @@ export function AppShell() {
             <span className="hidden sm:inline">Đổi vai trò</span>
           </button>
         </header>
-        <main className="flex-1 overflow-y-auto">
-          <div className="space-y-5 p-4 lg:p-6">
+        <main className={`min-h-0 flex-1 ${FIXED_TOP_ROUTES.includes(pathname) ? 'overflow-hidden' : 'overflow-y-auto'}`}>
+          {FIXED_TOP_ROUTES.includes(pathname) ? (
             <Outlet />
-          </div>
+          ) : (
+            <div className="space-y-5 p-4 lg:p-6">
+              <Outlet />
+            </div>
+          )}
         </main>
       </div>
     </div>

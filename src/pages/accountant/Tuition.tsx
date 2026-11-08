@@ -3,6 +3,7 @@ import { useMemo, useState, type FormEvent } from 'react'
 import { EmptyState, SearchInput, Segmented, Toolbar } from '../../components/common/Controls'
 import { ReceiptView } from '../../components/common/ReceiptView'
 import { StatCard, StatGrid } from '../../components/common/StatCard'
+import { PageScroll } from '../../components/layout/PageScroll'
 import { Badge } from '../../components/ui/Badge'
 import { Button } from '../../components/ui/Button'
 import { Card, TableWrap } from '../../components/ui/Card'
@@ -91,8 +92,10 @@ export function Tuition() {
   const choices = target ? openInvoices(target.id) : []
 
   return (
-    <>
-      <StatGrid>
+    <PageScroll
+      top={
+        <>
+          <StatGrid>
         <StatCard icon={CircleDollarSign} label="Tổng phải thu" value={money(totals.due)} sub={`${state.invoices.length} khoản thu`} />
         <StatCard icon={Wallet} accent="teal" label="Đã thu" value={money(totals.paid)} sub={`${state.payments.length} biên lai`} />
         <StatCard icon={AlertCircle} accent="red" label="Còn nợ" value={money(totals.debt)} sub={`${Math.round((totals.debt / (totals.due || 1)) * 100)}% tổng phải thu`} />
@@ -131,8 +134,10 @@ export function Tuition() {
         }
         right={<SearchInput value={q} onChange={setQ} placeholder="Tìm theo MSSV hoặc họ tên" />}
       />
-
-      <Card>
+        </>
+      }
+    >
+      <Card className="flex min-h-0 flex-1 flex-col">
         {view === 'debts' ? (
           <>
             <TableWrap>
@@ -296,6 +301,6 @@ export function Tuition() {
       >
         {shown && shownStudent && <ReceiptView payment={shown} student={shownStudent} invoice={shownInvoice} />}
       </Modal>
-    </>
+    </PageScroll>
   )
 }

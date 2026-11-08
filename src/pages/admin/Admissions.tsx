@@ -1,6 +1,7 @@
 import { CheckCircle2, UserCheck, XCircle } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { EmptyState, SearchInput, Segmented, Toolbar } from '../../components/common/Controls'
+import { PageScroll } from '../../components/layout/PageScroll'
 import { Badge } from '../../components/ui/Badge'
 import { Button } from '../../components/ui/Button'
 import { Card, TableWrap } from '../../components/ui/Card'
@@ -42,8 +43,10 @@ export function Admissions() {
   }
 
   return (
-    <>
-      <Toolbar
+    <PageScroll
+      top={
+        <>
+          <Toolbar
         left={
           <Segmented
             value={level}
@@ -76,8 +79,10 @@ export function Admissions() {
           </button>
         </div>
       )}
-
-      <Card>
+        </>
+      }
+    >
+      <Card className="flex min-h-0 flex-1 flex-col">
         <TableWrap>
           <thead>
             <tr>
@@ -141,6 +146,6 @@ export function Admissions() {
         </TableWrap>
         {!rows.length && <EmptyState>Không có hồ sơ phù hợp bộ lọc.</EmptyState>}
       </Card>
-    </>
+    </PageScroll>
   )
 }
